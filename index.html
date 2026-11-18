@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juana Cosméticos | Sua beleza, seu momento.</title>
+    <meta name="description"
+        content="Catálogo demonstrativo da Juana Cosméticos, marca fictícia de beleza: skincare, maquiagem, cabelos e corpo e serviços de beleza. Projeto de portfólio." />
+    <meta name="theme-color" content="#F5EDE7" />
+    <meta property="og:title" content="Juana Cosméticos | Sua beleza, seu momento." />
+    <meta property="og:description"
+        content="Catálogo demonstrativo de cosméticos com busca, filtros, favoritos e carrinho. Projeto de portfólio com marca fictícia." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <a class="skip-link" href="#catalogo">Pular para os produtos</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="#inicio" aria-label="Juana Cosméticos, voltar ao início">
+                <img src="assets/juana-monograma.svg" alt="" width="42" height="42">
+                <span class="logo-text">
+                    <span class="logo-name">Juana</span>
+                    <span class="logo-sub">Cosméticos</span>
+                </span>
+            </a>
+
+            <nav class="main-nav" aria-label="Seções do site">
+                <a href="#catalogo">Produtos</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#contato">Contato</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-btn fav-header-btn" type="button" aria-label="Ver favoritos (0)">
+                    <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                    <span class="badge fav-badge" aria-hidden="true">0</span>
+                </button>
+                <button class="icon-btn cart-icon" type="button" aria-label="Abrir carrinho (0 itens)"
+                    aria-controls="carrinho" aria-expanded="false">
+                    <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+                    <span class="badge cart-badge" aria-hidden="true">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section" id="inicio">
+            <div class="container hero-inner">
+                <div class="hero-content">
+                    <span class="hero-tag">Beleza e cosméticos · <span data-loja="cidade">Registro/SP</span></span>
+                    <h1>Sua beleza, <em>seu momento.</em></h1>
+                    <p>Skincare, maquiagem e cuidados para cabelos e corpo, com serviços de beleza para completar a sua
+                        rotina.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#catalogo">Ver produtos</a>
+                        <a class="btn btn-ghost" href="#servicos">Conhecer serviços</a>
+                    </div>
+                </div>
+                <div class="hero-art">
+                    <img src="assets/hero.svg" alt="" width="580" height="500">
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog" id="catalogo" aria-labelledby="catalogo-titulo">
+            <div class="container">
+                <div class="section-head">
+                    <span class="eyebrow">Catálogo</span>
+                    <h2 id="catalogo-titulo">Produtos</h2>
+                    <p>Escolha a categoria, pesquise pelo nome e salve seus favoritos.</p>
+                </div>
+
+                <div class="catalog-toolbar">
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <label for="busca" class="sr-only">Buscar produto</label>
+                        <input id="busca" type="search" class="search-input" placeholder="Buscar produto..."
+                            autocomplete="off" />
+                    </div>
+                    <div class="toolbar-controls">
+                        <label for="ordenacao" class="sr-only">Ordenar produtos</label>
+                        <select id="ordenacao" class="sort-select">
+                            <option value="destaque">Destaques primeiro</option>
+                            <option value="menor-preco">Menor preço</option>
+                            <option value="maior-preco">Maior preço</option>
+                            <option value="nome">Nome (A–Z)</option>
+                        </select>
+                        <button class="chip fav-filter-btn" type="button" aria-pressed="false">
+                            <i class="fa-regular fa-heart" aria-hidden="true"></i> Favoritos
+                        </button>
+                    </div>
+                </div>
+
+                <div class="categories-container">
+                    <nav class="categories-bar" id="categories-bar" aria-label="Categorias">
+                        <button class="category-btn active" type="button" data-category="all" aria-pressed="true">
+                            <i class="fa-solid fa-border-all" aria-hidden="true"></i> Todos
+                        </button>
+                    </nav>
+                </div>
+
+                <div class="results-bar">
+                    <p class="results-info" id="results-info" aria-live="polite"></p>
+                    <button class="link-btn clear-filters-btn" type="button" hidden>Limpar filtros</button>
+                </div>
+
+                <div class="products-container">
+                    <p class="loading-state">Carregando produtos…</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="servicos" aria-labelledby="servicos-titulo">
+            <div class="container">
+                <div class="section-head">
+                    <span class="eyebrow">Atendimento</span>
+                    <h2 id="servicos-titulo">Serviços</h2>
+                    <p>Atendimentos para complementar a sua rotina de beleza.</p>
+                </div>
+                <div class="services-grid"></div>
+                <p class="services-note">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    Agendamentos indisponíveis nesta versão demonstrativa.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Carrinho -->
+    <div class="cart-overlay"></div>
+
+    <aside class="cart-sidebar" id="carrinho" aria-labelledby="cart-title" inert>
+        <div class="cart-header">
+            <h2 id="cart-title">Seu carrinho</h2>
+            <button class="close-cart-btn" type="button" aria-label="Fechar carrinho">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="cart-body"></div>
+
+        <div class="cart-footer">
+            <div class="coupon-container">
+                <label for="coupon-input" class="sr-only">Cupom de desconto</label>
+                <input type="text" id="coupon-input" placeholder="Cupom de desconto" autocomplete="off">
+                <button id="apply-coupon-btn" type="button">Aplicar</button>
+            </div>
+            <p class="coupon-hint" hidden>
+                Experimente o cupom demonstrativo
+                <button class="link-btn coupon-hint-btn" type="button"></button>
+            </p>
+            <p id="coupon-feedback" class="coupon-feedback" aria-live="polite"></p>
+
+            <div class="cart-summary">
+                <div class="summary-line"><span>Subtotal</span><span id="cart-subtotal">R$ 0,00</span></div>
+                <div class="summary-line discount-line" hidden>
+                    <span>Desconto</span><span id="cart-discount">- R$ 0,00</span>
+                </div>
+                <div class="summary-line total"><span>Total</span><span id="cart-total">R$ 0,00</span></div>
+            </div>
+
+            <p class="cart-demo-note">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                Carrinho demonstrativo: nenhum pedido é enviado e nenhum pagamento é processado.
+            </p>
+        </div>
+
+        <div class="finish-order-btn-container">
+            <button id="finish-order-btn" class="finish-order-btn" type="button" disabled>
+                Simular pedido
+            </button>
+        </div>
+    </aside>
+
+    <div class="view-cart-banner">
+        <p>Total: <span id="banner-total">R$ 0,00</span></p>
+        <button class="view-cart-banner-btn" type="button">Ver carrinho</button>
+    </div>
+
+    <!-- Detalhes do produto -->
+    <dialog class="modal product-modal" id="produto-modal" aria-labelledby="produto-modal-nome">
+        <button class="modal-close" type="button" data-fechar aria-label="Fechar detalhes">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <div class="product-modal-grid">
+            <div class="product-modal-media">
+                <img id="produto-modal-img" src="assets/juana-monograma.svg" alt="" width="600" height="600">
+            </div>
+            <div class="product-modal-info">
+                <span class="product-category" id="produto-modal-categoria"></span>
+                <h2 id="produto-modal-nome"></h2>
+                <p class="product-modal-price" id="produto-modal-preco"></p>
+                <p class="product-modal-desc" id="produto-modal-descricao"></p>
+                <div class="product-modal-section" id="produto-modal-uso-bloco">
+                    <h3>Como usar</h3>
+                    <p id="produto-modal-uso"></p>
+                </div>
+                <div class="product-modal-buy">
+                    <div class="qty-control" role="group" aria-label="Quantidade">
+                        <button type="button" class="quantity-btn" data-qtd="-1" aria-label="Diminuir quantidade">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                        </button>
+                        <span class="quantity" id="produto-modal-qtd" aria-live="polite">1</span>
+                        <button type="button" class="quantity-btn" data-qtd="1" aria-label="Aumentar quantidade">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-primary modal-add-btn">
+                        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> Adicionar ao carrinho
+                    </button>
+                    <button type="button" class="icon-btn modal-fav-btn" aria-pressed="false"
+                        aria-label="Adicionar aos favoritos">
+                        <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <p class="product-modal-note">Produto fictício, criado para demonstração.</p>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Resumo do pedido demonstrativo -->
+    <dialog class="modal order-modal" id="pedido-modal" aria-labelledby="pedido-modal-titulo">
+        <button class="modal-close" type="button" data-fechar aria-label="Fechar resumo">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <div class="order-modal-body">
+            <span class="order-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+            <h2 id="pedido-modal-titulo">Pedido simulado</h2>
+            <p class="order-modal-lead">
+                Este é um projeto de portfólio. Nenhum pedido foi enviado e nenhum pagamento foi processado.
+            </p>
+            <ul class="order-items" id="pedido-itens"></ul>
+            <div class="cart-summary" id="pedido-resumo"></div>
+            <div class="order-modal-actions">
+                <button type="button" class="btn btn-ghost" data-fechar>Continuar navegando</button>
+                <button type="button" class="btn btn-primary order-reset-btn">Esvaziar carrinho</button>
+            </div>
+        </div>
+    </dialog>
+
+    <div class="toast" role="status" aria-live="polite">
+        <span class="toast-msg"></span>
+        <button type="button" class="toast-action" hidden>Ver carrinho</button>
+    </div>
+
+    <footer id="contato">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="assets/juana-monograma.svg" alt="" width="52" height="52">
+                <div>
+                    <p class="footer-name" data-loja="nomeLoja">Juana Cosméticos</p>
+                    <p class="footer-slogan" data-loja="slogan">Sua beleza, seu momento.</p>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h2>Contato</h2>
+                <ul class="footer-list">
+                    <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span
+                            data-loja="cidade">Registro/SP</span></li>
+                    <li><i class="fa-brands fa-instagram" aria-hidden="true"></i> <span
+                            data-loja="instagram">@juana.cosmeticos</span></li>
+                    <li><i class="fa-solid fa-phone" aria-hidden="true"></i> <span data-loja="telefone">(13)
+                            91999999</span> <small>(número demonstrativo)</small></li>
+                    <li class="footer-whatsapp" hidden></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h2>Navegação</h2>
+                <ul class="footer-list">
+                    <li><a href="#catalogo">Produtos</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#inicio">Voltar ao topo</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>© <span class="footer-year">2026</span> <span data-loja="nomeLoja">Juana Cosméticos</span></p>
+            <p class="demo-notice">Projeto demonstrativo de portfólio. Marca, produtos, preços e serviços fictícios.</p>
+        </div>
+    </footer>
+
+    <!-- O SDK do Firebase é carregado sob demanda pelo script.js, só quando firebase-config.js estiver preenchido -->
+    <script src="./firebase-config.js"></script>
+    <script src="./data/catalogo-demo.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <base href="../../">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed Firebase – Juana Cosméticos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #262124; color: #F5EDE7; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+    h1 { font-size: 1.4rem; margin-bottom: 8px; color: #DFA6AC; }
+    p  { font-size: .9rem; color: #aaa; margin-bottom: 24px; text-align: center; max-width: 480px; }
+    #btn { padding: 14px 36px; background: #DFA6AC; color: #262124; font-size: 1rem; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: opacity .2s; }
+    #btn:disabled { opacity: .45; cursor: not-allowed; }
+    #log  { margin-top: 24px; width: 100%; max-width: 540px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px; font-size: .8rem; font-family: monospace; max-height: 360px; overflow-y: auto; }
+    #login-box { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 320px; margin-bottom: 20px; }
+    #login-box input { padding: 12px; border-radius: 6px; border: 1px solid #333; background: #1a1a1a; color: #eee; font-size: .9rem; }
+    #login-error { color: #f44336; font-size: .8rem; display: none; }
+    .ok   { color: #4caf50; }
+    .err  { color: #f44336; }
+    .info { color: #90caf9; }
+  </style>
+</head>
+<body>
+
+<h1>Seed de dados – Juana Cosméticos</h1>
+<p>Faça login com o usuário admin (mesmo usado no <code>admin.html</code>) e clique no botão para enviar os produtos, categorias, serviços e o cupom demonstrativo ao Firestore do Firebase. Execute <strong>apenas uma vez</strong>. Se rodar novamente, usará <code>set</code> com o mesmo ID (não duplica).</p>
+
+<div id="login-box">
+  <input type="email" id="email-input" placeholder="E-mail do admin">
+  <input type="password" id="senha-input" placeholder="Senha">
+  <button id="login-btn">🔐 Entrar</button>
+  <span id="login-error">E-mail ou senha inválidos.</span>
+</div>
+
+<button id="btn" disabled>Enviar dados demonstrativos ao Firebase</button>
+
+<div id="log"><span class="info">Faça login para habilitar o envio.</span></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="./firebase-config.js"></script>
+<script src="./data/catalogo-demo.js"></script>
+
+<script>
+// Dados vindos de data/catalogo-demo.js (mesma fonte usada pela loja)
+const { produtos, categorias, cupons, servicos } = CATALOGO_DEMO;
+
+if (typeof firebaseConfig === "undefined" || !firebaseConfig.projectId) {
+  document.getElementById("log").innerHTML =
+    '<span class="err">firebase-config.js está vazio. Preencha-o antes de rodar o seed (veja o README).</span>';
+  document.getElementById("login-btn").disabled = true;
+  throw new Error("Firebase não configurado");
+}
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+const log = document.getElementById("log");
+const btn = document.getElementById("btn");
+const loginBtn = document.getElementById("login-btn");
+const loginBox = document.getElementById("login-box");
+const loginError = document.getElementById("login-error");
+
+const addLog = (msg, tipo = "ok") => {
+  const span = document.createElement("span");
+  span.className = tipo;
+  span.textContent = msg;
+  log.appendChild(span);
+  log.appendChild(document.createElement("br"));
+  log.scrollTop = log.scrollHeight;
+};
+
+loginBtn.addEventListener("click", () => {
+  const email = document.getElementById("email-input").value.trim();
+  const senha = document.getElementById("senha-input").value;
+  loginError.style.display = "none";
+  auth.signInWithEmailAndPassword(email, senha).catch(() => {
+    loginError.style.display = "block";
+  });
+});
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    loginBox.style.display = "none";
+    btn.disabled = false;
+    log.innerHTML = "";
+    addLog(`✔ Logado como ${user.email}. Pronto para enviar.`, "ok");
+  } else {
+    loginBox.style.display = "flex";
+    btn.disabled = true;
+  }
+});
+
+btn.addEventListener("click", async () => {
+  btn.disabled = true;
+  log.innerHTML = "";
+  addLog("▶ Iniciando envio...", "info");
+
+  let ok = 0, erros = 0;
+
+  for (const p of produtos) {
+    try {
+      await db.collection("produtos").doc(String(p.id)).set({
+        ...p,
+        ativo: true,
+        destaque: Boolean(p.destaque),
+        criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      addLog(`✔ [${p.id}] ${p.nome}`, "ok");
+      ok++;
+    } catch (e) {
+      addLog(`✘ [${p.id}] ${p.nome} — ${e.message}`, "err");
+      erros++;
+    }
+  }
+
+  addLog("", "info");
+  addLog("▶ Enviando categorias...", "info");
+  for (const c of categorias) {
+    try {
+      await db.collection("categorias").doc(c.id).set(c);
+      addLog(`✔ Categoria: ${c.nome}`, "ok");
+    } catch (e) {
+      addLog(`✘ Categoria: ${c.nome} — ${e.message}`, "err");
+      erros++;
+    }
+  }
+
+  addLog("", "info");
+  addLog("▶ Enviando serviços...", "info");
+  for (const sv of servicos) {
+    try {
+      await db.collection("servicos").doc(sv.id).set({ ...sv, ativo: true });
+      addLog(`✔ Serviço: ${sv.nome}`, "ok");
+    } catch (e) {
+      addLog(`✘ Serviço: ${sv.nome} — ${e.message}`, "err");
+      erros++;
+    }
+  }
+
+  addLog("", "info");
+  addLog("▶ Enviando cupons...", "info");
+  for (const c of cupons) {
+    try {
+      await db.collection("cupons").doc(c.codigo).set(c);
+      addLog(`✔ Cupom: ${c.codigo}`, "ok");
+    } catch (e) {
+      addLog(`✘ Cupom: ${c.codigo} — ${e.message}`, "err");
+      erros++;
+    }
+  }
+
+  addLog("", "info");
+  addLog(`━━━ CONCLUÍDO: ${ok} produtos enviados, ${erros} erros ━━━`, erros > 0 ? "err" : "info");
+  btn.disabled = false;
+});
+</script>
+</body>
+</html>

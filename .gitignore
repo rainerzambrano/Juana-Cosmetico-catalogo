@@ -1,0 +1,27 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+__MACOSX/
+._*
+
+# Editores, dependências e logs
+.vscode/
+.idea/
+*.swp
+node_modules/
+*.log
+
+# Dados locais e credenciais
+.env
+.env.*
+*.pem
+*.key
+*serviceAccount*.json
+credentials*.json
+.firebase/
+.firebaserc
+.vercel/
+
+# Saída gerada e pacotes
+public/
+*.zip

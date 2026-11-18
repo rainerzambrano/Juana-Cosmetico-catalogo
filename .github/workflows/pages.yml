@@ -1,0 +1,44 @@
+name: Publicar catálogo demonstrativo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v6
+      - name: Testar armazenamento local
+        run: node tests/storage.test.mjs
+      - name: Preparar somente a demonstração
+        run: python3 scripts/preparar-pages.py
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+      - name: Enviar artefato
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+
+  publicar:
+    needs: preparar
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
