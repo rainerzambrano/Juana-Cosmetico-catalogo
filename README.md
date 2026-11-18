@@ -4,7 +4,9 @@ Projeto demonstrativo de portfólio de **Rainer Zambrano**, com uma marca fictí
 
 > Marca, produtos, preços, serviços e contatos são fictícios. O carrinho apenas simula um pedido; não há pagamento, envio de mensagens nem agendamento.
 
-**Status:** versão revisada e testada localmente, preparada para publicação no GitHub e no GitHub Pages.
+**Status:** publicado no GitHub Pages. Testes de armazenamento e publicação concluídos com sucesso em 18/11/2026.
+
+**[Acessar a demonstração online](https://rainerzambrano.github.io/Juana-Cosmetico-catalogo/)**
 
 ![Página inicial no computador](docs/screenshots/home-desktop.jpg)
 
