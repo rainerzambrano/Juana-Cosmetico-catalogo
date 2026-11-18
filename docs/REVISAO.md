@@ -1,7 +1,11 @@
 # Revisão — Juana Cosméticos
 
 **Data:** 18/11/2026  
-**Resultado:** preparação local concluída; publicação autorizada por Rainer, com créditos à base e ao contexto de estudo. Configuração e validação online em andamento.
+**Resultado:** catálogo publicado no GitHub e no GitHub Pages, com créditos à base e ao contexto de estudo. Testes de armazenamento e publicação concluídos com sucesso; carregamento da página pública confirmado em 18/11/2026.
+
+- [Demonstração online](https://rainerzambrano.github.io/Juana-Cosmetico-catalogo/)
+- [Repositório](https://github.com/rainerzambrano/Juana-Cosmetico-catalogo)
+- [Execução de publicação bem-sucedida](https://github.com/rainerzambrano/Juana-Cosmetico-catalogo/actions/runs/44395701768)
 
 ## Material analisado
 
@@ -16,7 +20,7 @@ As capturas recebidas foram substituídas por capturas reais da prévia revisada
 | Origem confirmada em ronaldandrade25/ra-cosmetico, sem licença geral identificada | Créditos e URL adicionados; contexto da mentoria e instrução de publicação de Rainer registrados em ORIGEM-E-LICENCA.md. Nenhuma licença aberta foi atribuída ao conjunto. |
 | Dados JSON válidos, porém fora do formato esperado em localStorage, podiam interromper a inicialização | Leitura de carrinho e favoritos passa a validar listas e retornar o padrão para valores incompatíveis. |
 | Controles da barra do catálogo ultrapassavam a tela em 320 px | Flexbox passa a permitir quebra de linha; medição final sem transbordamento horizontal. |
-| Histórico antigo e metadados do sistema no ZIP | Excluídos da cópia preparada. Uma futura publicação deve iniciar histórico limpo, sem importar os objetos antigos. |
+| Histórico antigo e metadados do sistema no ZIP | Excluídos da cópia preparada. O repositório publicado iniciou um histórico limpo, sem importar os objetos antigos. |
 | Admin e carga de dados não necessários ao catálogo demonstrativo | Preservados em extras/firebase, com caminhos ajustados; excluídos do artefato destinado ao Pages. |
 | README não identificava a origem e afirmava desenvolvimento integral | Reescrito para distinguir base, personalização e revisão assistida. |
 | Garantia ampla de acessibilidade no README antigo | Substituída por descrição dos recursos efetivos; não se afirma certificação WCAG. |
@@ -66,9 +70,9 @@ No painel opcional, foram identificados valores remotos interpolados em HTML sem
 - Os testes ocorreram no navegador local com viewports redimensionadas; não em aparelhos físicos nem em uma matriz completa de navegadores.
 - Não houve teste de autenticação, banco real, PDV ou gravações Firebase.
 - Fontes e ícones continuam dependentes de CDNs.
-- A configuração do workflow foi preparada, mas não executada no GitHub.
-- O repositório público e o GitHub Pages não foram criados. Não há links publicados nem teste de produção.
-- A origem foi confirmada pelo link fornecido por Rainer e pela igualdade dos 16 arquivos correspondentes. Rainer autorizou a publicação após informar o contexto da mentoria Operação 50K. A conta conectada é rainerzambrano. A configuração do Pages e os testes online devem ser registrados após a conclusão.
+- O workflow foi executado com sucesso no GitHub: armazenamento, preparação do artefato e deploy do Pages passaram.
+- O repositório público contém 37 arquivos. A página publicada carregou com os 12 produtos e os cinco serviços. A verificação online confirmou esse carregamento; os testes completos de interação da tabela acima foram realizados localmente.
+- A origem foi confirmada pelo link fornecido por Rainer e pela igualdade dos 16 arquivos correspondentes. Rainer autorizou a publicação após informar o contexto da mentoria Operação 50K. A conta conectada é rainerzambrano. Rainer ativou GitHub Actions como origem do Pages; a publicação foi concluída e o carregamento público foi confirmado.
 
 ## Referências
 
